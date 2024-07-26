@@ -1,5 +1,5 @@
 import Button from "@/components/Button/Button";
-
+import { MdOutlineDashboard } from "react-icons/md";
 export default function Home() {
   return (
     <main className="">
@@ -8,7 +8,7 @@ export default function Home() {
         <Button />
         {/* dashboard */}
         {/* footer */}
-        {/* https://www.figma.com/design/YhdjTPHt3kQLTQsJ6xLu9K/Inventory-Management-System-(Community)?node-id=55-100475&t=7sv6RnPTeXgTBTCc-0 */}
+        Hi
       </div>
     </main>
   );
