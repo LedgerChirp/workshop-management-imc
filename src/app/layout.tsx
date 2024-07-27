@@ -27,6 +27,7 @@ export default function RootLayout({
   const router = usePathname();
   const authRoutes = ["/auth/login", "/auth/signup", "/forgot-password"];
   const isAuthRoute = authRoutes.includes(router);
+
   return (
     <html lang="en">
       <QueryClientProvider client={queryClient}>

@@ -9,25 +9,31 @@ import { RxPerson } from "react-icons/rx";
 import { MdLocalPhone } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 import { Signup } from "@/utils/Signup";
-
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { notify } from "@/utils/Toast";
+import Image from "next/image";
 const SignupScreen = () => {
   const [formData, setFormData] = useState<any>({
-    name: "",
+    username: "",
     password: "",
     phone: "",
-    countryCode: "+1",
+    // countryCode: "+1",
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const router = useRouter();
   const mutation = useMutation({
     mutationFn: Signup,
     onError: (error: any) => {
       setError("Signup failed. Please try again.");
+      // notify("")
       setLoading(false);
     },
-    onSuccess: (data: any) => {
+    onSuccess: async (data: any) => {
       console.log("Registered successfully", data);
+      await Cookies.set("auth", data.access_token);
+      await router.replace("/");
       setLoading(false);
     },
   });
@@ -50,15 +56,22 @@ const SignupScreen = () => {
       ...formData,
       phone: `+91${formData.phone}`,
     };
-    // console.log(signupData);
+    console.log(signupData);
     mutation.mutate(signupData);
   };
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen">
+    <div className="flex justify-center items-center w-full h-full">
       <Card>
         <div className="flex flex-col space-y-3 justify-evenly items-center w-[30vw] h-[80vh] p-5">
           <div className="flex flex-col justify-center items-center text-centers space-y-2">
+            <Image
+              src={"/logo.png"}
+              className="w-10 h-10"
+              width={1000}
+              height={1000}
+              alt=""
+            />
             <h1 className="font-medium text-2xl">Welcome Back!</h1>
             <p className="font-base text-gray-400 text-xs">
               Login back to your account
@@ -71,11 +84,11 @@ const SignupScreen = () => {
             <div className="flex flex-col space-y-5 w-full justify-center items-center h-full ">
               <div className=" w-full">
                 <Input
-                  name="name"
+                  name="username"
                   type="text"
                   placeholder="Your Full Name"
                   icon={<RxPerson />}
-                  value={formData.name}
+                  value={formData.username}
                   onTextChange={handleChange}
                 />
               </div>

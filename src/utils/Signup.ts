@@ -6,7 +6,7 @@ export const Signup = async (data: {
   password: string;
 }) => {
   const response = await axios.post(
-    `https://workshop-management-backend.onrender.com` + "/auth/register",
+    process.env.NEXT_PUBLIC_BACKEND_BASE_ENDPOINT + "/auth/register",
     {
       ...data,
       role: "admin",

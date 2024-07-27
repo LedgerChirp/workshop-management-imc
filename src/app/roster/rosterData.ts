@@ -20,6 +20,5 @@ export const rosterData = {
       endTime: "14:00",
       hours: 8,
     },
-    // ... more roster entries
   ],
 };

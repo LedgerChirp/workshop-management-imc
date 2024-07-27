@@ -5,7 +5,7 @@ import { fuelData } from "./fuelData";
 const page = () => {
   return (
     <div className="px-10">
-      <Table dataProp={fuelData} />
+      <Table />
     </div>
   );
 };

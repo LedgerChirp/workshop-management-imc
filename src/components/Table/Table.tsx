@@ -142,7 +142,7 @@ const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
 type User = (typeof data)[0];
 
 export default function App({ dataProp }: any) {
-  console.log(dataProp);
+  // console.log(dataProp);
   const { columns, data, statusOptions } = dataProp;
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
@@ -332,7 +332,7 @@ export default function App({ dataProp }: any) {
                   onSelectionChange={setStatusFilter}
                 >
                   {statusOptions.map((status: any) => (
-                    <DropdownItem key={status.uid} className="capitalize">
+                    <DropdownItem key={status?.uid} className="capitalize">
                       {capitalize(status.name)}
                     </DropdownItem>
                   ))}
@@ -357,7 +357,7 @@ export default function App({ dataProp }: any) {
                 onSelectionChange={setVisibleColumns}
               >
                 {columns.map((column: any) => (
-                  <DropdownItem key={column.uid} className="capitalize">
+                  <DropdownItem key={column?.uid} className="capitalize">
                     {capitalize(column.name)}
                   </DropdownItem>
                 ))}
@@ -455,7 +455,7 @@ export default function App({ dataProp }: any) {
       <TableHeader columns={headerColumns}>
         {(column: any) => (
           <TableColumn
-            key={column.uid}
+            key={column?.uid}
             align={column.uid === "actions" ? "center" : "start"}
             allowsSorting={column.sortable}
           >
@@ -465,7 +465,7 @@ export default function App({ dataProp }: any) {
       </TableHeader>
       <TableBody emptyContent={"No users found"} items={sortedItems}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item?.id}>
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}

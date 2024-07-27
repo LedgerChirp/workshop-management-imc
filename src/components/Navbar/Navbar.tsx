@@ -1,31 +1,43 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { notify } from "@/utils/Toast";
-
-const Links = [
-  {
-    name: "Settings",
-    href: "/settings",
-  },
-  {
-    name: "Logout",
-    href: "/",
-  },
-];
-
+import Cookies from "js-cookie";
 const Navbar = () => {
   const path = usePathname();
+  const router = useRouter();
   const formattedPath = path.startsWith("/") ? path.slice(1) : path;
   const [openModal, setOpenModal] = useState(false);
 
+  const Links = [
+    {
+      name: "Settings",
+      function: () => {
+        router.push("/settings");
+      },
+    },
+    {
+      name: "Logout",
+      function: async () => {
+        await Cookies.remove("auth");
+        await router.push("/auth/login");
+        notify("Logged out successfully!", "success");
+      },
+    },
+  ];
   return (
     <>
       <div className="w-full h-20 fixed right-0 flex flex-row z-50 justify-between items-center bg-white bg-opacity-100 px-10">
-      <Image src={"/logo.png"} alt="" className="h-10 w-10 rounded-full" width={1000} height={1000} />
+        <Image
+          src={"/logo.png"}
+          alt=""
+          className="h-10 w-10 rounded-full"
+          width={1000}
+          height={1000}
+        />
         <h1 className="first-letter:uppercase text-lg font-semibold">
           {formattedPath}
         </h1>
@@ -62,14 +74,14 @@ const Navbar = () => {
                 className="absolute top-20 bg-white right-5 flex flex-col space-y-2 p-2 rounded-md shadow-xl"
               >
                 {Links &&
-                  Links.map((value) => (
-                    <Link
+                  Links.map((value, id) => (
+                    <button
+                      key={id}
+                      onClick={value.function}
                       className="hover:bg-gray-200 py-1 px-2 rounded-lg"
-                      href={value.href}
-                      key={value.href}
                     >
                       {value.name}
-                    </Link>
+                    </button>
                   ))}
               </motion.div>
             )}

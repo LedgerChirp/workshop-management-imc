@@ -9,7 +9,7 @@ import {
   Legend,
   Tooltip,
 } from "recharts";
-
+import App from "../Table/Table";
 const Dashboard: React.FC = () => {
   const marketingData = [
     { name: "Social Media", value: 30 },
@@ -118,7 +118,7 @@ const Dashboard: React.FC = () => {
           </select>
         </div>
         {/* Placeholder for line chart */}
-        <div className="w-full h-64 bg-gray-200 rounded"></div>
+        {/* <App dataProp={} /> */}
       </div>
     </div>
   );

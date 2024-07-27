@@ -9,8 +9,12 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/utils/auth/login";
 import { useRouter } from "next/navigation";
-
+import { useAuth } from "@/context/AuthContext";
+import Cookies from "js-cookie";
+import { notify } from "@/utils/Toast";
 const LoginScreen = () => {
+  const { setUser } = useAuth();
+
   const [formData, setFormData] = useState({
     phone: "",
     password: "",
@@ -29,15 +33,19 @@ const LoginScreen = () => {
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: (data: any) => {
-      console.log(data);
-      
+      // console.log(data);
+      setUser(data.user);
+      Cookies.set("auth", data.access_token);
       router.push("/dashboard");
     },
     onError: (error: any) => {
       setError(error.message);
     },
   });
-
+  const updatedFormData = {
+    ...formData,
+    phone: `+91${formData.phone}`,
+  };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -45,12 +53,10 @@ const LoginScreen = () => {
 
     // Mock API call
     try {
-      console.log(formData);
-      // Replace with actual API call
-      mutation.mutate(formData);
-      // Handle successful login
+      // console.log(formData);
+      mutation.mutate(updatedFormData);
 
-      console.log("Logged in successfully");
+      notify("Logged in successfully", "success");
     } catch (err) {
       setError("Login failed. Please try again.");
     } finally {
