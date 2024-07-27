@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={`${inter.className} flex flex-row w-screen h-screen`}>
         <div className="flex flex-row w-full">
           {!isAuthRoute && <Sidebar />}
-          <Navbar />
+          {/* <Navbar /> */}
           <div className="flex-grow">{children}</div>
         </div>
       </body>
