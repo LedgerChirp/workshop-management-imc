@@ -4,6 +4,7 @@ import { Inter, Poppins } from "next/font/google";
 import { usePathname, useRouter } from "next/navigation";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import Navbar from "@/components/Navbar/Navbar";
 
 const inter = Poppins({
   subsets: ["latin"],
@@ -22,15 +23,13 @@ export default function RootLayout({
 }>) {
   const router = usePathname();
   const authRoutes = ["/auth/login", "/auth/signup", "/forgot-password"];
-
-  console.log(router);
   const isAuthRoute = authRoutes.includes(router);
-
   return (
     <html lang="en">
       <body className={`${inter.className} flex flex-row`}>
         <div className="flex flex-row">
           {!isAuthRoute && <Sidebar />}
+          <Navbar />
           <div className="flex-grow">{children}</div>
         </div>
       </body>
