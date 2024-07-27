@@ -3,6 +3,7 @@ import SummaryCard from "@/components/Card/SummaryCard";
 import NewWorkOrderModal from "@/components/Modal/NewWorkOrderModal";
 import EmptyState from "@/components/EmptyState/WorkOrderEmptyState";
 import Table from "@/components/Table/Table";
+import { workOrderData } from "./workOrderData";
 
 const Page: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ const Page: React.FC = () => {
             icon={<span>🛒</span>}
           />
         </div>
-        <Table />
+        <Table dataProp={workOrderData} />
         <div className="bg-white p-8 rounded-lg shadow-md h-max w-full">
           <div></div>
           {/* <EmptyState /> */}

@@ -4,6 +4,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getEmployees } from "@/utils/GetEmployees";
 import NewEmployeeModal from "@/components/Modal/NewEmployeeModal";
+import { employeeData } from "./employeeData";
 
 const Employees = () => {
   const { data, isLoading, isError } = useQuery({
@@ -14,7 +15,7 @@ const Employees = () => {
   return (
     <>
       <NewEmployeeModal />
-      <Table />;
+      <Table dataProp={employeeData} />
     </>
   );
 };

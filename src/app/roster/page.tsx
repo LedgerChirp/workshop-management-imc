@@ -1,10 +1,11 @@
 import Table from "@/components/Table/Table";
 import React from "react";
+import { rosterData } from "./rosterData";
 
 const page = () => {
   return (
     <div className="px-10">
-      <Table />
+      <Table dataProp={rosterData} />
     </div>
   );
 };

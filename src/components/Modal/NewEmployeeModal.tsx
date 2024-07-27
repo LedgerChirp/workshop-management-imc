@@ -35,9 +35,11 @@ const NewEmployeeModal: React.FC = () => {
 
   return (
     <div>
-      <Button onPress={onOpen} className="bg-blue-500 text-white">
-        + Create a New Employee
-      </Button>
+      <div className="flex w-full items-center justify-end my-3">
+        <Button onPress={onOpen} className="bg-blue-500 text-white">
+          + Create a New Employee
+        </Button>
+      </div>
       <Modal
         size="3xl"
         aria-labelledby="modal-title"
