@@ -7,6 +7,7 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import Navbar from "@/components/Navbar/Navbar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
+import { AuthProvider } from "@/context/AuthContext";
 const inter = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -29,21 +30,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <QueryClientProvider client={queryClient}>
-        <body
-          className={`${inter.className} flex flex-row w-screen h-screen overflow-x-hidden`}
-        >
-          <div className="flex flex-row w-full">
-            {!isAuthRoute && (
-              <>
-                <Sidebar /> <Navbar />
-              </>
-            )}
+        <AuthProvider>
+          <body
+            className={`${inter.className} flex flex-row w-screen h-screen overflow-x-hidden`}
+          >
+            <div className="flex flex-row w-full">
+              {!isAuthRoute && (
+                <>
+                  <Sidebar /> <Navbar />
+                </>
+              )}
 
-            <div className="flex-grow ml-20 my-20">
-              {children} <Toaster />
+              <div className="flex-grow ml-20 my-20">
+                {children} <Toaster />
+              </div>
             </div>
-          </div>
-        </body>
+          </body>
+        </AuthProvider>
       </QueryClientProvider>
     </html>
   );
