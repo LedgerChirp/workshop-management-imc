@@ -3,9 +3,6 @@ import React, { useState } from "react";
 import {
   Modal,
   Button,
-  Switch,
-  Input,
-  Textarea,
   ModalHeader,
   ModalBody,
   ModalFooter,
@@ -16,6 +13,23 @@ import OrderForm from "./OrderForm";
 
 const OrderModal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [formData, setFormData] = useState({
+    title: "",
+    department: "",
+    description: "",
+    priority: "",
+    assignedTo: "",
+    startDate: "",
+    dueDate: "",
+    laborHours: "",
+    costEstimate: "",
+    status: "Pending",
+  });
+
+  const handleCreateOrder = () => {
+    console.log(formData);
+    onClose();
+  };
 
   return (
     <div>
@@ -35,13 +49,16 @@ const OrderModal: React.FC = () => {
                 <h1 className="text-xl font-bold">Create New Order</h1>
               </ModalHeader>
               <ModalBody>
-                <OrderForm />
+                <OrderForm formData={formData} setFormData={setFormData} />
               </ModalBody>
               <ModalFooter>
                 <Button variant="flat" color="danger" onClick={onClose}>
                   Cancel
                 </Button>
-                <Button onClick={onClose} className="bg-blue-500 text-white">
+                <Button
+                  onClick={handleCreateOrder}
+                  className="bg-blue-500 text-white"
+                >
                   Create Order
                 </Button>
               </ModalFooter>

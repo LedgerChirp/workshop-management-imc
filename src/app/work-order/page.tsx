@@ -11,9 +11,6 @@ const Page: React.FC = () => {
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold">Orders Summary</h1>
           <NewWorkOrderModal />
-          {/* <button className="px-4 py-2 bg-[#5570F1] text-white rounded-lg">
-            + Create a New Order
-          </button> */}
         </header>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 w-full">
           <SummaryCard title="All Orders" value={0} icon={<span>📦</span>} />
