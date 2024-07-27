@@ -8,7 +8,7 @@ import { CiLock, CiMail } from "react-icons/ci";
 import { RxPerson } from "react-icons/rx";
 import { MdLocalPhone } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
-import { Signup } from "@/utils/Signup";
+import { Signup } from "@/utils/auth/Signup";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { notify } from "@/utils/Toast";
@@ -18,6 +18,7 @@ const SignupScreen = () => {
     username: "",
     password: "",
     phone: "",
+    role: "admin",
     // countryCode: "+1",
   });
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +28,7 @@ const SignupScreen = () => {
     mutationFn: Signup,
     onError: (error: any) => {
       setError("Signup failed. Please try again.");
-      // notify("")
+      // notify("dfasfas",'su')
       setLoading(false);
     },
     onSuccess: async (data: any) => {

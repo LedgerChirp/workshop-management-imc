@@ -2,7 +2,7 @@
 import Table from "@/components/Table/Table";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getEmployees } from "@/utils/GetEmployees";
+import { getEmployees } from "@/utils/employees/GetEmployees";
 import NewEmployeeModal from "@/components/Modal/NewEmployeeModal";
 import { employeeData } from "./employeeData";
 

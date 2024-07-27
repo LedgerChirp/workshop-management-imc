@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Cookies from "js-cookie";
 import { notify } from "@/utils/Toast";
+import Image from "next/image";
 
 const LoginScreen = () => {
   const { setUser } = useAuth();
@@ -36,6 +37,7 @@ const LoginScreen = () => {
     mutationFn: login,
     onSuccess: (data: any) => {
       // console.log(data);
+      notify("Logged in successfully", "success");
       setUser(data.user);
       Cookies.set("auth", data.access_token);
       localStorage.setItem("user", JSON.stringify(data.user));
@@ -58,7 +60,6 @@ const LoginScreen = () => {
 
     try {
       mutation.mutate(updatedFormData);
-      notify("Logged in successfully", "success");
     } catch (err) {
       setError("Login failed. Please try again.");
     } finally {
@@ -71,6 +72,13 @@ const LoginScreen = () => {
       <Card>
         <div className="flex flex-col space-y-3 justify-evenly items-center w-[30vw] h-[70vh] p-5">
           <div className="flex flex-col justify-center items-center text-centers space-y-2">
+            <Image
+              src={"/logo.png"}
+              className="w-10 h-10"
+              width={1000}
+              height={1000}
+              alt=""
+            />
             <h1 className="font-medium text-2xl">Welcome Back!</h1>
             <p className="font-base text-gray-400 text-xs">
               Login back to your account

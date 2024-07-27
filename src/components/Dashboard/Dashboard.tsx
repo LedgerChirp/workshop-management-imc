@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from "recharts";
 import App from "../Table/Table";
+import { DashboardData } from "./dashboardData";
 const Dashboard: React.FC = () => {
   const marketingData = [
     { name: "Social Media", value: 30 },
@@ -118,7 +119,7 @@ const Dashboard: React.FC = () => {
           </select>
         </div>
         {/* Placeholder for line chart */}
-        {/* <App dataProp={} /> */}
+        <App dataProp={DashboardData} />
       </div>
     </div>
   );

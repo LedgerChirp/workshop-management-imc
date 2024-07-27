@@ -28,12 +28,12 @@ const Sidebar = () => {
         {sidebarItems.map((item) => (
           <SidebarItem key={item.label} {...item} isOpen={isOpen} />
         ))}
-        <SidebarItem
+        {/* <SidebarItem
           key={"Logout"}
           icon={CiLogout}
           label="Logout"
           isOpen={isOpen}
-        />
+        /> */}
       </div>
     </div>
   );
