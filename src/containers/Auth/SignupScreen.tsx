@@ -33,6 +33,7 @@ const SignupScreen = () => {
     onSuccess: async (data: any) => {
       console.log("Registered successfully", data);
       await Cookies.set("auth", data.access_token);
+      localStorage.setItem("user", JSON.parse(data.user));
       await router.replace("/");
       setLoading(false);
     },

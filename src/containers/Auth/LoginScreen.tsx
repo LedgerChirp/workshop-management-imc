@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Cookies from "js-cookie";
 import { notify } from "@/utils/Toast";
+
 const LoginScreen = () => {
   const { setUser } = useAuth();
 
@@ -22,6 +23,7 @@ const LoginScreen = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -36,26 +38,26 @@ const LoginScreen = () => {
       // console.log(data);
       setUser(data.user);
       Cookies.set("auth", data.access_token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       router.push("/dashboard");
     },
     onError: (error: any) => {
       setError(error.message);
     },
   });
+
   const updatedFormData = {
     ...formData,
     phone: `+91${formData.phone}`,
   };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-    // Mock API call
     try {
-      // console.log(formData);
       mutation.mutate(updatedFormData);
-
       notify("Logged in successfully", "success");
     } catch (err) {
       setError("Login failed. Please try again.");

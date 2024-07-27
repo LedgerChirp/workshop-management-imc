@@ -452,15 +452,19 @@ export default function App({ dataProp }: any) {
       onSelectionChange={setSelectedKeys}
       onSortChange={setSortDescriptor}
     >
-      <TableHeader columns={headerColumns}>
-        {(column: any) => (
-          <TableColumn
-            key={column?.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
-          >
-            {column.name}
-          </TableColumn>
+      <TableHeader>
+        {headerColumns && headerColumns.length > 0 ? (
+          headerColumns.map((column: any) => (
+            <TableColumn
+              key={column.uid || 0}
+              align={column.uid === "actions" ? "center" : "start"}
+              allowsSorting={column.sortable}
+            >
+              {column.name}
+            </TableColumn>
+          ))
+        ) : (
+          <TableColumn>Not found</TableColumn>
         )}
       </TableHeader>
       <TableBody emptyContent={"No users found"} items={sortedItems}>

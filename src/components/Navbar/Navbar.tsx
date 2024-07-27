@@ -2,21 +2,34 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { notify } from "@/utils/Toast";
 import Cookies from "js-cookie";
+import { useAuth } from "@/context/AuthContext";
 const Navbar = () => {
   const path = usePathname();
   const router = useRouter();
   const formattedPath = path.startsWith("/") ? path.slice(1) : path;
   const [openModal, setOpenModal] = useState(false);
+  // const { user } = useAuth();
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      console.log(parsedUser);
+      setUsername(parsedUser.username);
+    }
+  }, []);
 
   const Links = [
     {
       name: "Settings",
       function: () => {
         router.push("/settings");
+        setOpenModal(false);
       },
     },
     {
@@ -24,7 +37,9 @@ const Navbar = () => {
       function: async () => {
         await Cookies.remove("auth");
         await router.push("/auth/login");
+        await localStorage.removeItem("user");
         notify("Logged out successfully!", "success");
+        setOpenModal(false);
       },
     },
   ];
@@ -71,8 +86,9 @@ const Navbar = () => {
                     damping: 20,
                   },
                 }}
-                className="absolute top-20 bg-white right-5 flex flex-col space-y-2 p-2 rounded-md shadow-xl"
+                className="absolute top-20 justify-center items-center bg-white right-5 flex flex-col space-y-2 p-2 rounded-md shadow-xl"
               >
+                <p className="font-bold uppercase text-blue-600">{username}</p>
                 {Links &&
                   Links.map((value, id) => (
                     <button

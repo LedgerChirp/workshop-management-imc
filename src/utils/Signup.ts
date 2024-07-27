@@ -5,6 +5,7 @@ export const Signup = async (data: {
   phone: string;
   password: string;
 }) => {
+  console.log(data);
   const response = await axios.post(
     process.env.NEXT_PUBLIC_BACKEND_BASE_ENDPOINT + "/auth/register",
     {
