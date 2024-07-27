@@ -17,7 +17,7 @@ const EmptyState: React.FC = () => {
       </div>
       <p className="text-gray-500">No Orders Yet?</p>
       <p className="text-gray-400">
-        Add products to your store and start selling to see orders here.
+        Add products to your store to see orders here.
       </p>
       <button className="mt-4 px-4 py-2 bg-[#5570F1] text-white rounded-lg">
         + New Order

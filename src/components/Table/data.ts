@@ -1,4 +1,16 @@
 import React from "react";
+
+// const columns = [
+//   { name: "TRACKING ID", uid: "tracking_id", sortable: true },
+//   { name: "CUSTOMER NAME", uid: "cust_name", sortable: true },
+//   { name: "ORDER DATE", uid: "order_date", sortable: true },
+//   { name: "ORDER TYPE", uid: "order_type", sortable: true },
+//   { name: "ORDER TOTAL", uid: "order_total" },
+//   { name: "EMAIL", uid: "email" },
+//   { name: "STATUS", uid: "status", sortable: true },
+//   { name: "ACTIONS", uid: "actions" },
+// ];
+
 const columns = [
   { name: "ID", uid: "id", sortable: true },
   { name: "NAME", uid: "name", sortable: true },
