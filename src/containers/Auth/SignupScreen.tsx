@@ -5,42 +5,53 @@ import Input from "@/components/Input/Input";
 import Link from "next/link";
 import React, { useState } from "react";
 import { CiLock, CiMail } from "react-icons/ci";
-import { FaPhoneAlt } from "react-icons/fa";
 import { RxPerson } from "react-icons/rx";
+import { MdLocalPhone } from "react-icons/md";
+import { useMutation } from "@tanstack/react-query";
+import { Signup } from "@/utils/Signup";
 
 const SignupScreen = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<any>({
     name: "",
-    email: "",
     password: "",
+    phone: "",
+    countryCode: "+1",
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const mutation = useMutation({
+    mutationFn: Signup,
+    onError: (error: any) => {
+      setError("Signup failed. Please try again.");
+      setLoading(false);
+    },
+    onSuccess: (data: any) => {
+      console.log("Registered successfully", data);
+      setLoading(false);
+    },
+  });
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setFormData((prevData: any) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-    // Mock API call
-    try {
-      // Replace with actual API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      // Handle successful login
-      console.log("Logged in successfully");
-    } catch (err) {
-      setError("Login failed. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    // Combine phone number with country code
+    const signupData = {
+      ...formData,
+      phone: `+91${formData.phone}`,
+    };
+    // console.log(signupData);
+    mutation.mutate(signupData);
   };
 
   return (
@@ -68,7 +79,7 @@ const SignupScreen = () => {
                   onTextChange={handleChange}
                 />
               </div>
-              <div className="text-end space-y-3 flex flex-col w-full">
+              {/* <div className="text-end space-y-3 flex flex-col w-full">
                 <Input
                   name="email"
                   type="email"
@@ -77,6 +88,33 @@ const SignupScreen = () => {
                   icon={<CiMail />}
                   onTextChange={handleChange}
                 />
+              </div> */}
+              <div className="text-end space-y-3 flex flex-col w-full">
+                <div className="flex w-full items-center">
+                  {/* <select
+                    name="countryCode"
+                    value={formData.countryCode}
+                    onChange={handleChange}
+                    className="p-2  outline-none rounded-l-md w-16"
+                  >
+                    {countries &&
+                      countries.map((value) => (
+                        <option key={value.name} value={value.code}>
+                          {value.name}
+                          {value.code}
+                        </option>
+                      ))}
+                  </select> */}
+
+                  <Input
+                    name="phone"
+                    type="text"
+                    icon={<MdLocalPhone />}
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onTextChange={handleChange}
+                  />
+                </div>
               </div>
               <div className="text-end space-y-3 flex flex-col w-full">
                 <Input
@@ -90,7 +128,7 @@ const SignupScreen = () => {
               </div>
               <p className="text-gray-300">
                 Already have an account?{" "}
-                <Link href={"/auth/signup"} className="text-blue-400">
+                <Link href={"/auth/login"} className="text-blue-400">
                   Login
                 </Link>
               </p>

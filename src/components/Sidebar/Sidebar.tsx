@@ -9,7 +9,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`h-screen bg-white overflow-y-hidden ${
+      className={`h-screen fixed bg-white overflow-y-hidden z-50 ${
         isOpen ? "w-72" : "w-24"
       } transition-width duration-300 shadow-lg`}
       onMouseEnter={() => {

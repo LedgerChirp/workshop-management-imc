@@ -1,9 +1,12 @@
-import React from 'react'
+import AccountSettings from "@/components/Settings/Settings";
+import React from "react";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div>
+      <AccountSettings />
+    </div>
+  );
+};
 
-export default page
+export default page;

@@ -37,7 +37,7 @@ const Dashboard: React.FC = () => {
             <h2 className="text-lg font-semibold">All Products</h2>
             <span className="text-blue-500">View All</span>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 ">
             <div className="bg-blue-500 text-white p-4 rounded-lg">
               <p className="text-sm">All Products</p>
               <p className="text-2xl font-bold">0</p>
