@@ -1,9 +1,12 @@
-import React from 'react'
+import Table from "@/components/Table/Table";
+import React from "react";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div className="px-10">
+      <Table />
+    </div>
+  );
+};
 
-export default page
+export default page;

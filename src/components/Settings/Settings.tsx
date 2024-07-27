@@ -6,7 +6,7 @@ const AccountSettings: React.FC = () => {
   const [activeTab, setActiveTab] = useState("Account");
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold">Account Settings</h1>
         <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
