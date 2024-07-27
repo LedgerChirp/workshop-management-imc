@@ -20,7 +20,7 @@ import {
   ChipProps,
   SortDescriptor,
 } from "@nextui-org/react";
-import { columns, users, statusOptions } from "./data";
+import { columns, data, statusOptions } from "./data";
 import { SVGProps } from "react";
 
 const PlusIcon = ({ size = 24, width, height, ...props }: IconSvgProps) => (
@@ -139,9 +139,11 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
 
-type User = (typeof users)[0];
+type User = (typeof data)[0];
 
-export default function App() {
+export default function App({ dataProp }: any) {
+  console.log(dataProp);
+  const { columns, data, statusOptions } = dataProp;
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set([])
@@ -163,13 +165,13 @@ export default function App() {
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
 
-    return columns.filter((column) =>
+    return columns.filter((column: any) =>
       Array.from(visibleColumns).includes(column.uid)
     );
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...users];
+    let filteredUsers = [...data];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
@@ -186,7 +188,7 @@ export default function App() {
     }
 
     return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+  }, [data, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -311,30 +313,32 @@ export default function App() {
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3">
-            <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button
-                  endContent={<ChevronDownIcon className="text-small" />}
-                  variant="flat"
+            {statusOptions ? (
+              <Dropdown>
+                <DropdownTrigger className="hidden sm:flex">
+                  <Button
+                    endContent={<ChevronDownIcon className="text-small" />}
+                    variant="flat"
+                  >
+                    Status
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu
+                  disallowEmptySelection
+                  aria-label="Table Columns"
+                  closeOnSelect={false}
+                  selectedKeys={statusFilter}
+                  selectionMode="multiple"
+                  onSelectionChange={setStatusFilter}
                 >
-                  Status
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectedKeys={statusFilter}
-                selectionMode="multiple"
-                onSelectionChange={setStatusFilter}
-              >
-                {statusOptions.map((status) => (
-                  <DropdownItem key={status.uid} className="capitalize">
-                    {capitalize(status.name)}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
+                  {statusOptions.map((status: any) => (
+                    <DropdownItem key={status.uid} className="capitalize">
+                      {capitalize(status.name)}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </Dropdown>
+            ) : null}
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button
@@ -352,7 +356,7 @@ export default function App() {
                 selectionMode="multiple"
                 onSelectionChange={setVisibleColumns}
               >
-                {columns.map((column) => (
+                {columns.map((column: any) => (
                   <DropdownItem key={column.uid} className="capitalize">
                     {capitalize(column.name)}
                   </DropdownItem>
@@ -366,7 +370,7 @@ export default function App() {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+            Total {data.length} users
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -388,7 +392,7 @@ export default function App() {
     visibleColumns,
     onSearchChange,
     onRowsPerPageChange,
-    users.length,
+    data.length,
     hasSearchFilter,
   ]);
 
@@ -449,7 +453,7 @@ export default function App() {
       onSortChange={setSortDescriptor}
     >
       <TableHeader columns={headerColumns}>
-        {(column) => (
+        {(column: any) => (
           <TableColumn
             key={column.uid}
             align={column.uid === "actions" ? "center" : "start"}
