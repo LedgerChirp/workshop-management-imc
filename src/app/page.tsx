@@ -1,14 +1,8 @@
-import Navbar from "@/components/Navbar/Navbar";
+import Dashboard from "@/components/Dashboard/Dashboard";
+import React from "react";
 
-export default function Home() {
-  return (
-    <main className="flex">
-      <div className="bg-[#F4F5FA]">
-        {/* navbar */}
-        <Navbar />
-        {/* dashboard */}
-        {/* footer */}
-      </div>
-    </main>
-  );
-}
+const page = () => {
+  return <Dashboard />;
+};
+
+export default page;

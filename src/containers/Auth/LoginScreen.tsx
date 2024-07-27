@@ -6,6 +6,9 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { CiLock } from "react-icons/ci";
 import { FaPhoneAlt } from "react-icons/fa";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "@/utils/auth/login";
+import { useRouter } from "next/navigation";
 
 const LoginScreen = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +17,7 @@ const LoginScreen = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const router = useRouter();
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -23,6 +26,18 @@ const LoginScreen = () => {
     }));
   };
 
+  const mutation = useMutation({
+    mutationFn: login,
+    onSuccess: (data: any) => {
+      console.log(data);
+      
+      router.push("/dashboard");
+    },
+    onError: (error: any) => {
+      setError(error.message);
+    },
+  });
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -30,9 +45,11 @@ const LoginScreen = () => {
 
     // Mock API call
     try {
+      console.log(formData);
       // Replace with actual API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      mutation.mutate(formData);
       // Handle successful login
+
       console.log("Logged in successfully");
     } catch (err) {
       setError("Login failed. Please try again.");
@@ -42,7 +59,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen">
+    <div className="flex justify-center items-center w-full h-full">
       <Card>
         <div className="flex flex-col space-y-3 justify-evenly items-center w-[30vw] h-[70vh] p-5">
           <div className="flex flex-col justify-center items-center text-centers space-y-2">
@@ -59,7 +76,7 @@ const LoginScreen = () => {
               <div className=" w-full">
                 <Input
                   name="phone"
-                  type="number"
+                  type="string"
                   placeholder="Phone"
                   icon={<FaPhoneAlt />}
                   value={formData.phone}

@@ -1,7 +1,25 @@
+"use client";
 import React from "react";
 import { FiShoppingBag, FiUsers, FiBox, FiShoppingCart } from "react-icons/fi";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Legend,
+  Tooltip,
+} from "recharts";
 
 const Dashboard: React.FC = () => {
+  const marketingData = [
+    { name: "Social Media", value: 30 },
+    { name: "Email", value: 25 },
+    { name: "SEO", value: 20 },
+    { name: "PPC", value: 15 },
+    { name: "Content Marketing", value: 10 },
+  ];
+
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       {/* Top row stats */}
@@ -26,9 +44,35 @@ const Dashboard: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {/* Marketing donut chart */}
         <div className="bg-white p-4 rounded-lg shadow">
-          <h2 className="text-lg font-semibold mb-4">Marketing</h2>
+          <h2 className="text-lg font-semibold mb-4">Total Expenditure</h2>
           {/* Placeholder for donut chart */}
-          <div className="w-full h-64 bg-gray-200 rounded-full"></div>
+          <div className="w-full">
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={marketingData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                  label={({ name, percent }) =>
+                    `${name} ${(percent * 100).toFixed(0)}%`
+                  }
+                >
+                  {marketingData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* All Products card */}
