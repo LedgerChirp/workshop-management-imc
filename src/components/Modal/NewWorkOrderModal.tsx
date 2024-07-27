@@ -21,8 +21,8 @@ const OrderModal: React.FC = () => {
     assignedTo: "",
     startDate: "",
     dueDate: "",
-    laborHours: "",
-    costEstimate: "",
+    laborHours: 0,
+    costEstimate: 0,
     status: "Pending",
   });
 
