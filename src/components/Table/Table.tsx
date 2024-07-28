@@ -363,7 +363,7 @@ export default function App({ dataProp }: any) {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="bg-[#5570F1]" endContent={<PlusIcon />}>
+            <Button color="primary" endContent={<PlusIcon />}>
               Add New
             </Button>
           </div>
@@ -408,7 +408,7 @@ export default function App({ dataProp }: any) {
           isCompact
           showControls
           showShadow
-          color="#5570F1"
+          color="primary"
           page={page}
           total={pages}
           onChange={setPage}

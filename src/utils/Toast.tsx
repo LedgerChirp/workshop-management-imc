@@ -4,14 +4,26 @@ const Toast = () => {
   return (
     <Toaster
       position="bottom-right"
-      autoClose={2000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
+      reverseOrder={false}
+      toastOptions={{
+        duration: 2000, // AutoClose duration for all toasts
+        style: {
+          background: "#363636",
+          color: "#fff",
+        },
+        success: {
+          style: {
+            background: "green",
+            color: "#fff",
+          },
+        },
+        error: {
+          style: {
+            background: "red",
+            color: "#fff",
+          },
+        },
+      }}
     />
   );
 };
