@@ -1,5 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { createWorkOrder } from "@/utils/work-order/createOrder";
+import { notify } from "@/utils/Toast";
 import {
   Modal,
   Button,
@@ -13,7 +16,9 @@ import OrderForm from "./OrderForm";
 
 const OrderModal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [formData, setFormData] = useState({
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [formData, setFormData] = useState<any>({
     title: "",
     department: "",
     description: "",
@@ -22,12 +27,39 @@ const OrderModal: React.FC = () => {
     startDate: "",
     dueDate: "",
     laborHours: 0,
-    costEstimate: 0,
+    estimatedCost: 0,
     status: "Pending",
   });
 
-  const handleCreateOrder = () => {
+  const mutation = useMutation({
+    mutationFn: createWorkOrder,
+    onSuccess: (data: any) => {
+      console.log(data);
+      notify("Employee Created Successfully", "success");
+    },
+    onError: (error: any) => {
+      console.error(error);
+      setError(error.message);
+    },
+  });
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      mutation.mutate(formData);
+    } catch (err) {
+      setError("Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCreateOrder = (e: FormEvent) => {
     console.log(formData);
+    handleSubmit(e);
     onClose();
   };
 

@@ -11,7 +11,22 @@ import {
 } from "@nextui-org/react";
 import EmployeeOrderForm from "./EmployeeOrderForm";
 
-const NewEmployeeModal: React.FC = () => {
+interface Employee {
+  id: number;
+  name: string;
+  position: string;
+  department: string;
+  email: string;
+  phone: string;
+  hireDate: string;
+  status: string;
+}
+
+interface NewEmployeeModalProps {
+  addEmployee: (employee: Employee) => void;
+}
+
+const NewEmployeeModal: React.FC<NewEmployeeModalProps> = ({ addEmployee }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -29,7 +44,18 @@ const NewEmployeeModal: React.FC = () => {
   });
 
   const handleCreateEmployee = () => {
-    console.log("Employee Data:", formData);
+    const newEmployee: Employee = {
+      id: Date.now(), // Use timestamp as a unique ID
+      name: `${formData.firstName} ${formData.lastName}`,
+      position: formData.position,
+      department: formData.department,
+      email: formData.email,
+      phone: formData.phoneNumber,
+      hireDate: formData.dateOfJoining,
+      status: "active",
+    };
+
+    addEmployee(newEmployee);
     onClose();
   };
 

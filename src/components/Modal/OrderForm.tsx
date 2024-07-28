@@ -14,8 +14,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ formData, setFormData }) => {
   const handleChange = (field: string, value: any) => {
     setFormData((prev: any) => ({ ...prev, [field]: value }));
   };
-  // console.log(formData);
-  
+
   return (
     <form className="grid grid-cols-2 gap-4">
       <div className="col-span-2">
@@ -51,7 +50,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ formData, setFormData }) => {
         <label className="text-gray-700">Priority Level</label>
         <Select
           placeholder="Select Priority Level"
-          onChange={(e: any) => handleChange("priority", e.target.value)}
+          onChange={(value: any) => handleChange("priority", value)}
         >
           <SelectItem key="low" value="Low">
             Low
@@ -82,18 +81,14 @@ const OrderForm: React.FC<OrderFormProps> = ({ formData, setFormData }) => {
         <label className="text-gray-700">Start Date</label>
         <DatePicker
           label="Start Date"
-          onChange={(date: any) =>
-            handleChange("startDate", date?.toString() || "")
-          }
+          onChange={(date: any) => handleChange("startDate", date)}
         />
       </div>
       <div>
         <label className="text-gray-700">Due Date</label>
         <DatePicker
           label="Due Date"
-          onChange={(date: any) =>
-            handleChange("dueDate", date?.toString() || "")
-          }
+          onChange={(date: any) => handleChange("dueDate", date)}
         />
       </div>
       <div>
@@ -111,7 +106,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ formData, setFormData }) => {
         <Input
           placeholder="Enter Cost Estimate"
           type="number"
-          onChange={(e: any) => handleChange("costEstimate", e.target.value)}
+          onChange={(e: any) => handleChange("estimatedCost", e.target.value)}
         />
       </div>
       <div className="col-span-2">

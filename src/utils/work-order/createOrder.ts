@@ -10,11 +10,12 @@ interface WorkOrderData {
   startDate: string; // ISO date string
   dueDate: string; // ISO date string
   laborHours: number;
-  costEstimate: number;
+  estimatedCost: number;
   status: "Pending" | "In Progress" | "Completed" | "On Hold";
 }
 
 export const createWorkOrder = async (data: WorkOrderData) => {
+  console.log(`data in api` + data);
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_BASE_ENDPOINT}/work-orders`,
